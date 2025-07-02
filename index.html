@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WM 및 국제 상속 법률 서비스 분석 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <style>
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #f0f2f5; /* Professional Blue Theme Background */
+            color: #172b4d; /* Professional Blue Theme Text */
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0052cc; /* Professional Blue Theme Primary Color */
+            border-bottom-color: #0052cc;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-btn.active {
+            background-color: #0052cc; /* Professional Blue Theme Primary Color */
+            color: white;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-[#172b4d]">WM & 국제 상속 시장 분석</h1>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#landscape" class="nav-link text-gray-600 pb-1 border-b-2 border-transparent">시장 개요</a>
+                <a href="#players" class="nav-link text-gray-600 pb-1 border-b-2 border-transparent">주요 로펌</a>
+                <a href="#services" class="nav-link text-gray-600 pb-1 border-b-2 border-transparent">핵심 서비스</a>
+                <a href="#trends" class="nav-link text-gray-600 pb-1 border-b-2 border-transparent">시장 동향</a>
+                <a href="#opportunities" class="nav-link text-gray-600 pb-1 border-b-2 border-transparent">기회 및 전략</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-[#172b4d]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2">
+            <a href="#landscape" class="block text-center py-2 text-gray-600">시장 개요</a>
+            <a href="#players" class="block text-center py-2 text-gray-600">주요 로펌</a>
+            <a href="#services" class="block text-center py-2 text-gray-600">핵심 서비스</a>
+            <a href="#trends" class="block text-center py-2 text-gray-600">시장 동향</a>
+            <a href="#opportunities" class="block text-center py-2 text-gray-600">기회 및 전략</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="landscape" class="mb-20 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-[#172b4d]">서울의 Wealth Management 법률 시장: 새로운 지평</h2>
+            <p class="max-w-3xl mx-auto text-lg text-[#42526E]">
+                글로벌화와 자산 형태의 다변화 속에서 서울의 Wealth Management 및 국제 상속 법률 서비스 시장은 빠르게 진화하고 있습니다. 본 분석은 주요 로펌들의 전략을 입체적으로 조명하고, 시장의 최신 동향과 미래 기회를 탐색하여 사용자에게 깊이 있는 통찰력을 제공합니다.
+            </p>
+        </section>
+
+        <section id="players" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#172b4d]">주요 로펌 경쟁력 분석</h2>
+                <p class="mt-2 text-md text-[#42526E]">로펌을 선택하여 각 사의 전략적 강점을 확인해보세요.</p>
+            </div>
+            <div class="w-full max-w-4xl mx-auto p-4 md:p-8 card">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+                    <label for="lawFirmSelector" class="font-semibold mb-2 md:mb-0 md:mr-4 text-[#172b4d]">로펌 선택:</label>
+                    <select id="lawFirmSelector" class="p-2 border rounded-md w-full md:w-auto bg-gray-50 text-[#172b4d]">
+                        <option value="0">김앤장</option>
+                        <option value="1">태평양</option>
+                        <option value="2">광장</option>
+                        <option value="3">율촌</option>
+                        <option value="4">세종</option>
+                        <option value="5">화우</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="strengthChart"></canvas>
+                </div>
+                <div id="firmDescription" class="mt-6 p-4 bg-[#f0f2f5] rounded-lg text-[#172b4d] min-h-[100px]"></div>
+            </div>
+        </section>
+
+        <section id="services" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#172b4d]">핵심 서비스 영역</h2>
+                <p class="mt-2 text-md text-[#42526E]">복잡다단한 국제 상속 및 자산 관리의 핵심 분야들입니다.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">🌍</div><h3 class="text-xl font-bold mb-2">국제 상속 및 분쟁</h3><p class="text-[#42526E]">여러 국가에 걸친 상속 재산 분할, 유류분 청구, 유언 해석 등 복잡한 국제 사법 분쟁을 해결합니다.</p></div>
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">🏦</div><h3 class="text-xl font-bold mb-2">해외 자산 승계</h3><p class="text-[#42526E]">해외 부동산, 금융 자산, 기업 지분 등을 각국 법률에 맞춰 효율적으로 승계하고 세금을 최소화합니다.</p></div>
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">📜</div><h3 class="text-xl font-bold mb-2">해외 신탁 및 재단</h3><p class="text-[#42526E]">신탁 제도를 활용한 자산 보호, 상속세 절감 및 특정 목적 달성을 위한 구조를 설계하고 실행합니다.</p></div>
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">💸</div><h3 class="text-xl font-bold mb-2">국제 조세 및 분쟁</h3><p class="text-[#42526E]">국외전출세, 이중과세, CRS 정보 교환에 따른 세무조사 등 국제 조세 이슈에 대응합니다.</p></div>
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">🏢</div><h3 class="text-xl font-bold mb-2">가업 승계</h3><p class="text-[#42526E]">기업 오너의 경영권과 재산을 다음 세대로 원활하게 이전하기 위한 종합적인 법률 계획을 수립합니다.</p></div>
+                <div class="card p-8 text-center"><div class="text-4xl mb-4">💎</div><h3 class="text-xl font-bold mb-2">디지털 자산 상속</h3><p class="text-[#42526E]">법적 정립이 미흡한 가상화폐, NFT 등 신종 디지털 자산의 상속 가능성과 절차를 자문합니다.</p></div>
+            </div>
+        </section>
+
+        <section id="trends" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#172b4d]">시장 동향 및 법률적 과제</h2>
+                <p class="mt-2 text-md text-[#42526E]">법률 서비스 시장의 변화를 주도하는 핵심 동향입니다.</p>
+            </div>
+            <div class="w-full max-w-4xl mx-auto card p-4 md:p-8">
+                <div class="flex justify-center border-b mb-4">
+                    <button class="tab-btn flex-1 py-2 px-4 text-center font-semibold text-gray-600" data-target="crs">CRS와 투명성 강화</button>
+                    <button class="tab-btn flex-1 py-2 px-4 text-center font-semibold text-gray-600" data-target="conflict">상속법 충돌</button>
+                    <button class="tab-btn flex-1 py-2 px-4 text-center font-semibold text-gray-600" data-target="digital">디지털 자산</button>
+                </div>
+                <div id="crs" class="content-section p-4"><h3 class="font-bold text-lg mb-2">CRS (공통보고기준) 및 해외 금융계좌 신고 의무</h3><p class="text-[#42526E]">국가 간 금융정보 자동 교환으로 해외 자산의 투명성이 크게 강화되었습니다. 이로 인해 해외 금융계좌 미신고에 따른 세무 리스크가 증가했으며, 관련 법규 준수 및 자진 신고에 대한 법률 자문 수요가 급증하고 있습니다. 로펌들은 잠재적 세금 및 벌금 문제를 사전에 예방하는 데 주력하고 있습니다.</p></div>
+                <div id="conflict" class="content-section p-4"><h3 class="font-bold text-lg mb-2">해외 상속법 충돌 및 준거법 문제</h3><p class="text-[#42526E]">국제 상속에서는 피상속인의 본국법, 재산 소재지법, 거주지법 등 여러 법률이 충돌할 수 있습니다. 어떤 법률을 적용할지에 대한 심층 분석이 필수적입니다. 로펌들은 국제사법 원칙과 각국 법률에 대한 깊은 이해를 바탕으로, 유언장 작성 및 신탁 설계를 통해 법적 분쟁을 최소화하는 전략을 제공합니다.</p></div>
+                <div id="digital" class="content-section p-4"><h3 class="font-bold text-lg mb-2">디지털 자산의 부상과 상속 문제</h3><p class="text-[#42526E]">가상화폐, NFT 등 디지털 자산의 상속에 대한 법적 규제가 아직 명확하지 않습니다. 이는 상속 가능성, 소유권 확인, 가치 평가, 상속 절차 등에서 새로운 법률적 과제를 제기합니다. 주요 로펌들은 관련 판례와 법리 해석을 통해 이 새로운 서비스 영역을 개척하며 선도적인 역할을 수행하고자 합니다.</p></div>
+            </div>
+        </section>
+
+        <section id="opportunities" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[#172b4d]">시장 기회 및 경쟁 전략</h2>
+                <p class="mt-2 text-md text-[#42526E]">변화하는 시장 속 새로운 기회와 성공을 위한 전략입니다.</p>
+            </div>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+                <div class="card p-8"><h3 class="text-2xl font-bold mb-4">시장의 틈새 (Market Gaps)</h3><ul class="space-y-4"><li class="flex items-start"><span class="text-[#0052cc] mr-3 mt-1">✓</span><div><h4 class="font-semibold">중소 규모 자산가</h4><p class="text-[#42526E]">대형 로펌의 고비용 서비스에서 소외된 중산층의 국제 상속 법률 서비스 수요가 존재합니다.</p></div></li><li class="flex items-start"><span class="text-[#0052cc] mr-3 mt-1">✓</span><div><h4 class="font-semibold">특정 전문성 부족</h4><p class="text-[#42526E]">특정 국가/지역 또는 신흥 자산 유형(예: 디지털 자산)에 대한 깊이 있는 전문 서비스가 부족합니다.</p></div></li><li class="flex items-start"><span class="text-[#0052cc] mr-3 mt-1">✓</span><div><h4 class="font-semibold">비용 효율성</h4><p class="text-[#42526E]">합리적인 비용으로 고품질의 자문을 받고자 하는 고객들의 니즈가 증가하고 있습니다.</p></div></li></ul></div>
+                <div class="card p-8"><h3 class="text-2xl font-bold mb-4">성공 전략 (Strategies)</h3><ul class="space-y-4"><li class="flex items-start"><span class="text-green-500 mr-3 mt-1">→</span><div><h4 class="font-semibold">틈새시장 전문화</h4><p class="text-[#42526E]">'한국-미국 상속 전문'과 같이 특정 분야에 집중하여 독보적인 브랜드를 구축합니다.</p></div></li><li class="flex items-start"><span class="text-green-500 mr-3 mt-1">→</span><div><h4 class="font-semibold">기술 활용 및 효율화</h4><p class="text-[#42526E]">AI 법률 분석, 온라인 상담 시스템 등을 도입하여 서비스 효율성과 비용 경쟁력을 확보합니다.</p></div></li><li class="flex items-start"><span class="text-green-500 mr-3 mt-1">→</span><div><h4 class="font-semibold">협업 네트워크 구축</h4><p class="text-[#42526E]">해외 로펌, 세무 전문가, 금융기관 등 외부 전문가와 협력하여 종합 솔루션을 제공합니다.</p></div></li><li class="flex items-start"><span class="text-green-500 mr-3 mt-1">→</span><div><h4 class="font-semibold">콘텐츠 브랜딩</h4><p class="text-[#42526E]">유용한 정보 제공을 통해 전문성을 알리고 잠재 고객과의 신뢰를 구축합니다.</p></div></li></ul></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#172b4d] text-white mt-20">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>본 자료는 제공된 정보를 바탕으로 GEM이 재구성한 대화형 분석 애플리케이션입니다.</p>
+            <p class="text-sm text-gray-400 mt-2">&copy; 2025 Interactive Market Analysis by GEM. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Null-Safe DOM Access and UI Initialization
+            const firmData = [
+                { name: '김앤장', desc: '"자산운용", "가사·상속", "국제 조세" 등 전문 그룹 간의 유기적 협력을 통해 원스톱 서비스를 제공합니다. 특히 방대한 국내외 전문가 인력을 바탕으로 복합적인 문제 해결에 강점을 보입니다.', strengths: [5, 4, 5, 3, 4, 5] },
+                { name: '태평양', desc: "'자산관리승계센터(AWMC)'를 중심으로 상속, 가업승계, 조세 등 통합 서비스를 제공합니다. 금융기관과의 협력을 통해 법률-금융 융합 서비스를 확대하며 시너지를 창출하고 있습니다.", strengths: [4, 5, 4, 4, 5, 4] },
+                { name: '광장', desc: "전통적인 '기업 자문'의 강점을 바탕으로, '자산관리' 관련 형사 및 송무 분야를 강화하는 '리밸런싱' 전략을 통해 기업 승계와 관련된 통합 리스크 관리에 집중하고 있습니다.", strengths: [4, 4, 3, 3, 5, 3] },
+                { name: '율촌', desc: "'자산운용'과 '국제조세' 분야에서 독보적인 전문성을 자랑합니다. 특히 해외 투자 및 기업 승계 시 발생하는 복잡한 세금 문제 해결에 중점을 두고 있습니다.", strengths: [3, 4, 5, 4, 3, 3] },
+                { name: '세종', desc: "디지털 자산, 해외 신탁 등 새로운 형태의 자산에 대한 법률 및 제도 연구에 적극적입니다. 연관 서비스를 통해 고객에게 포괄적인 자산 관리 솔루션을 제공하는 전략을 취합니다.", strengths: [3, 3, 3, 5, 3, 4] },
+                { name: '화우', desc: "'자산관리센터' 및 '패밀리오피스 본부'를 신설하고, 은행 출신 신탁 전문가를 영입하여 유언대용신탁 등 신탁 분야의 전문성을 대폭 강화한 것이 특징입니다.", strengths: [3, 5, 4, 4, 4, 4] },
+            ];
+            const strengthLabels = ['종합 서비스', '승계/신탁', '국제 조세', '신규 분야(디지털 등)', '기업 연계', '글로벌 네트워크'];
+            
+            const chartCanvas = document.getElementById('strengthChart');
+            let strengthChart;
+
+            function createOrUpdateChart(firmIndex) {
+                if (!chartCanvas) return;
+                if (strengthChart) {
+                    strengthChart.destroy();
+                }
+                const selectedFirm = firmData[firmIndex];
+                const firmDescriptionEl = document.getElementById('firmDescription');
+
+                strengthChart = new Chart(chartCanvas.getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: strengthLabels,
+                        datasets: [{
+                            label: selectedFirm.name,
+                            data: selectedFirm.strengths,
+                            backgroundColor: 'rgba(0, 82, 204, 0.2)', // Professional Blue Theme
+                            borderColor: 'rgba(0, 82, 204, 1)',     // Professional Blue Theme
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(0, 82, 204, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(0, 82, 204, 1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { r: { angleLines: { color: 'rgba(0, 0, 0, 0.1)' }, grid: { color: 'rgba(0, 0, 0, 0.1)' }, pointLabels: { font: { size: 12 }, color: '#172b4d' }, suggestedMin: 0, suggestedMax: 5, ticks: { stepSize: 1, backdropColor: 'rgba(255, 255, 255, 0.75)' }}},
+                        plugins: { legend: { position: 'top', labels: { color: '#172b4d' } }, tooltip: { callbacks: { label: (c) => `${c.dataset.label || ''}: ${c.raw}`}}}
+                    }
+                });
+                
+                if (firmDescriptionEl) {
+                    firmDescriptionEl.textContent = selectedFirm.desc;
+                }
+            }
+
+            const lawFirmSelector = document.getElementById('lawFirmSelector');
+            if (lawFirmSelector) {
+                lawFirmSelector.addEventListener('change', (event) => createOrUpdateChart(event.target.value));
+                createOrUpdateChart(lawFirmSelector.value || 0);
+            }
+            
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            if (tabs.length > 0 && contentSections.length > 0) {
+                 tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(item => item.classList.remove('active'));
+                        tab.classList.add('active');
+                        const targetId = tab.getAttribute('data-target');
+                        contentSections.forEach(section => {
+                            section.classList.remove('active');
+                            if (section.id === targetId) {
+                                section.classList.add('active');
+                            }
+                        });
+                    });
+                });
+                // 명시적 UI 초기화
+                tabs[0].click();
+            }
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetEl = document.querySelector(this.getAttribute('href'));
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
